@@ -1,0 +1,15 @@
+name: remote-ssh
+version: 1.0.0
+description: A Wercker step for executing a script on a remote host
+keywords:
+  - ssh
+properties:
+  user:
+    type: string
+    required: true
+  ip:
+    type: string
+    required: true
+  commands:
+    type: string
+    required: true
