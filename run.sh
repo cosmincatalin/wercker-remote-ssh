@@ -3,14 +3,16 @@
 # Save current IFS
 SAVEIFS=$IFS
 # Change IFS to new line. 
-IFS=$'\n'
-commands=($WERCKER_REMOTE_SSH_COMMANDS)
+TST="$WERCKER_REMOTE_SSH_COMMANDS"
+TST=$(echo "$TST" | sed -r 's/\\n/***/g')
+IFS='***'
+read -r -a commands <<< "$TST"
 # Restore IFS
 IFS=$SAVEIFS
 for (( i=0; i<${#commands[@]}; i++ ))
 do
-    echo "$i: ${commands[$i]}"
+    if [ -n "${commands[$i]}" ]; then
+        echo ">>>${commands[$i]}"
+        ssh -o "StrictHostKeyChecking no" $WERCKER_REMOTE_SSH_USER@$WERCKER_REMOTE_SSH_IP ${commands[$i]}
+    fi
 done
-
-echo $WERCKER_REMOTE_SSH_USER
-echo $WERCKER_REMOTE_SSH_IP
