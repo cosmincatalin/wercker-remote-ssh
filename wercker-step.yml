@@ -13,7 +13,3 @@ properties:
   commands:
     type: string
     required: true
-  ifs:
-    type: string
-    required: false
-    default: ¬

@@ -4,8 +4,8 @@
 SAVEIFS=$IFS
 # Change IFS to new line. 
 TST="$WERCKER_REMOTE_SSH_COMMANDS"
-TST=$(echo "$TST" | sed -r 's/\\n/'$WERCKER_REMOTE_IFS'/g')
-IFS=$WERCKER_REMOTE_IFS
+TST=$(echo "$TST" | sed -r 's/\\n/***/g')
+IFS='***'
 read -r -a commands <<< "$TST"
 # Restore IFS
 IFS=$SAVEIFS
